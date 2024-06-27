@@ -1,0 +1,33 @@
+﻿@model List<DapperTest.Dtos.CategoryDtos.ResultCategoryDto>
+@{
+    ViewData["Title"] = "CategoryList";
+    int count = 0;
+}
+
+<div class="container">
+    <h1>Kategori Listesi</h1>
+    <hr />
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>Kategori Adı</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            count++;
+            <tr>
+                <td>@count</td>
+                <td>@item.CategoryName</td>
+                <td><a href="/Category/DeleteCategory/@item.CategoryId">Sil</a></td>
+                <td><a href="/Category/UpdateCategory/@item.CategoryId">Güncelle</a></td>
+            </tr>
+        }
+    </table>
+    <div class="row">
+        <a href="/Category/CreateCategory/">+ Yeni Kategori Oluştur</a>
+    </div>
+</div>
+
+
