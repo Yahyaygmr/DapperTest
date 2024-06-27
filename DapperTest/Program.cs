@@ -1,12 +1,15 @@
 using DapperTest.Context;
 using DapperTest.Services.Abstracts.Category;
+using DapperTest.Services.Abstracts.Product;
 using DapperTest.Services.Concretes.Category;
+using DapperTest.Services.Concretes.Product;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<DapperContext>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllersWithViews();
 
