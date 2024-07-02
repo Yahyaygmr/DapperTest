@@ -15,7 +15,8 @@ namespace DapperTest.Controllers
 
         public async Task<IActionResult> ProductList()
         {
-            var values = await _productService.GetAllProductAsync();
+            var values = await _productService.GetAllProductWithCategoryAsync();
+            ViewBag.productCount = await _productService.GetProductCount();
             return View(values);
         }
         [HttpGet]

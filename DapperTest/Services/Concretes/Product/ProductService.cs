@@ -44,6 +44,14 @@ namespace DapperTest.Services.Concretes.Product
             return values.ToList();
         }
 
+        public async Task<List<ResultProductWithCategoryDto>> GetAllProductWithCategoryAsync()
+        {
+            string query = "Select ProductId,ProductName,Price,Stock,CategoryName From TblProduct Inner Join TblCategory On TblProduct.CategoryId=TblCategory.CategoryId";
+            var connection = _dapperContext.CreateConnection();
+            var values = await connection.QueryAsync<ResultProductWithCategoryDto>(query);
+            return values.ToList();
+        }
+
         public async Task<GetByIdProductDto> GetProductAsync(int id)
         {
             string query = "Select * From TblProduct Where ProductId=@productId";
@@ -52,6 +60,14 @@ namespace DapperTest.Services.Concretes.Product
             var connection = _dapperContext.CreateConnection();
             var values = await connection.QueryFirstOrDefaultAsync<GetByIdProductDto>(query, parameters);
             return values;
+        }
+
+        public async Task<int> GetProductCount()
+        {
+            string query = "Select Count(*) From TblProduct";
+            var connection = _dapperContext.CreateConnection();
+            int value = await connection.QueryFirstOrDefaultAsync<int>(query);
+            return value;
         }
 
         public async Task UpdateProductAsync(UpdateProductDto dto)
@@ -63,7 +79,6 @@ namespace DapperTest.Services.Concretes.Product
             parameters.Add("@stock", dto.Stock);
             parameters.Add("@categoryId", dto.CategoryId);
             parameters.Add("@productId", dto.ProductId);
-
             var connection = _dapperContext.CreateConnection();
             await connection.ExecuteAsync(query, parameters);
         }
