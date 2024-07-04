@@ -47,5 +47,9 @@ namespace DapperTest.Controllers
             await _productService.UpdateProductAsync(dto);
             return RedirectToAction("ProductList");
         }
+        public IActionResult deneme()
+        {
+            return View();
+        }
     }
 }
