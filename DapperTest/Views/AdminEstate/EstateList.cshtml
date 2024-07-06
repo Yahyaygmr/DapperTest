@@ -1,7 +1,37 @@
-﻿
+﻿@model List<DapperTest.Dtos.EstateDtos.ResultEstateDto>
 @{
     ViewData["Title"] = "EstateList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>EstateList</h1>
+<h2>Emlak Listesi</h2>
+<hr />
+<table class="table table-bordered table-responsive">
+    <tr>
+        <th>#</th>
+        <th>Ad</th>
+        <th>Adres</th>
+        <th>Metrekare</th>
+        <th>Öneçıkan</th>
+        <th>Satılık</th>
+        <th>Kiralık</th>
+        <th>İşlemler</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>#</td>
+            <td>@item.EstateName</td>
+            <td>@item.Adress</td>
+            <td>@item.AreaSize</td>
+            <td>@item.IsFeatured</td>
+            <td>@item.ForSale</td>
+            <td>@item.ForRent</td>
+            <td>
+                <a href="#" class="btn btn-danger">Sil</a>
+                <a href="#" class="btn btn-info">Güncelle</a>
+            </td>
+        </tr>
+    }
+</table>
+<a href="#" class="btn btn-primary">+ Yeni Oluştur</a>

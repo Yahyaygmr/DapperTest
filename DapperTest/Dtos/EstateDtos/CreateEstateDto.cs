@@ -11,12 +11,12 @@ namespace DapperTest.Dtos.EstateDtos
         public bool ForRent { get; set; }
         public bool ForSale { get; set; }
         public int BedroomCount { get; set; }
-        public int BathroomCaount { get; set; }
+        public int BathroomCount { get; set; }
         public decimal Price { get; set; }
         public int AreaSize { get; set; }
         public bool IsFeatured { get; set; }
         public int BuildAge { get; set; }
-        public List<ResultImageDto> Images { get; set; }
+        public List<string> Images { get; set; } = new List<string>();
 
         public int LocationId { get; set; }
         public int CategoryId { get; set; }

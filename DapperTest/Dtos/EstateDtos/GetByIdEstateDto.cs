@@ -4,7 +4,7 @@ namespace DapperTest.Dtos.EstateDtos
 {
     public class GetByIdEstateDto
     {
-        public int EsatateId { get; set; }
+        public int EstateId { get; set; }
         public string EstateName { get; set; }
         public string? VideoUrl { get; set; }
         public string Adress { get; set; }
@@ -12,7 +12,7 @@ namespace DapperTest.Dtos.EstateDtos
         public bool ForRent { get; set; }
         public bool ForSale { get; set; }
         public int BedroomCount { get; set; }
-        public int BathroomCaount { get; set; }
+        public int BathroomCount { get; set; }
         public decimal Price { get; set; }
         public int AreaSize { get; set; }
         public bool IsFeatured { get; set; }

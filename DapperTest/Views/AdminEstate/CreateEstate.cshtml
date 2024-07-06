@@ -1,0 +1,125 @@
+﻿@using DapperTest.Dtos.CategoryDtos
+@using DapperTest.Dtos.LocationDtos
+@model DapperTest.Dtos.EstateDtos.CreateEstateDto
+
+@{
+    ViewData["Title"] = "CreateEstate";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h4>Yeni Emlak Kaydı</h4>
+<hr />
+
+<form asp-action="CreateEstate">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="EstateName" class="control-label">Adı</label>
+        <input asp-for="EstateName" class="form-control" />
+        <span asp-validation-for="EstateName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LocationId" class="control-label">İl</label>
+        <select asp-for="LocationId" class="form-control">
+            <option>İl Seçiniz</option>
+            @foreach (var location in (List<ResultLocationDto>)ViewBag.locations)
+            {
+                <option value="@location.LocationId">@location.LocationName</option>
+            }
+        </select>
+        <span asp-validation-for="LocationId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label">Kategori</label>
+        <select asp-for="CategoryId" class="form-control">
+            <option>Kategori Seçiniz</option>
+            @foreach (var location in (List<ResultCategoryDto>)ViewBag.categories)
+            {
+                <option value="@location.CategoryId">@location.CategoryName</option>
+            }
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adress" class="control-label">Adres</label>
+        <input asp-for="Adress" class="form-control" />
+        <span asp-validation-for="Adress" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BedroomCount" class="control-label">Yatak Odası Sayısı</label>
+        <input asp-for="BedroomCount" class="form-control" />
+        <span asp-validation-for="BedroomCount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BathroomCount" class="control-label">Banyo Sayısı</label>
+        <input asp-for="BathroomCount" class="form-control" />
+        <span asp-validation-for="BathroomCount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label">Fiyat</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AreaSize" class="control-label">Metrekare</label>
+        <input asp-for="AreaSize" class="form-control" />
+        <span asp-validation-for="AreaSize" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BuildAge" class="control-label">Bina Yaşı</label>
+        <input asp-for="BuildAge" class="form-control" />
+        <span asp-validation-for="BuildAge" class="text-danger"></span>
+    </div>
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" asp-for="ForRent" /> Kiralık
+        </label>
+    </div>
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" asp-for="ForSale" /> Satılık
+        </label>
+    </div>
+
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" asp-for="IsFeatured" /> Öneçıkan
+        </label>
+    </div>
+    <div class="form-grup">
+        <label>Resim Url</label>
+        <div id="imageUrls">
+            @* <input type="text" name="ImageUrls" class="form-control mt-3" placeholder="Enter image URL" /> *@
+        </div>
+        <button type="button" onclick="addImageUrl()" class="btn btn-dark btn-sm">Resim Url Ekle</button>
+    </div>
+    <div class="form-group">
+        <label asp-for="VideoUrl" class="control-label">Video Url</label>
+        <input asp-for="VideoUrl" class="form-control" />
+        <span asp-validation-for="VideoUrl" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Açıklama</label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Kaydet" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    <script>
+        function addImageUrl() {
+            var imageUrlDiv = document.getElementById("imageUrls");
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = "Images";
+            input.className = "form-control my-3";
+            input.placeholder = "Resim Url Ekle";
+            imageUrlDiv.appendChild(input);
+        }
+    </script>
+}

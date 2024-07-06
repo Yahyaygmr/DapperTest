@@ -1,8 +1,10 @@
 using DapperTest.Context;
 using DapperTest.Services.Abstracts.Category;
+using DapperTest.Services.Abstracts.Estate;
 using DapperTest.Services.Abstracts.Location;
 using DapperTest.Services.Abstracts.Product;
 using DapperTest.Services.Concretes.Category;
+using DapperTest.Services.Concretes.Estate;
 using DapperTest.Services.Concretes.Location;
 using DapperTest.Services.Concretes.Product;
 
@@ -13,6 +15,7 @@ builder.Services.AddScoped<DapperContext>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IEstateService, EstateService>();
 
 builder.Services.AddControllersWithViews();
 
