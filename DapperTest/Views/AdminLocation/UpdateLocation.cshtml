@@ -1,0 +1,25 @@
+﻿@model DapperTest.Dtos.LocationDtos.GetByIdLocationDto
+@{
+    ViewData["Title"] = "UpdateLocation";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1>Lokasyon Güncelle</h1>
+            <hr />
+            <form method="post">
+                <input type="hidden" asp-for="LocationId" />
+                <div class="form-group my-3">
+                    <label>Lokasyon Adı</label>
+                    <input type="text" asp-for="LocationName" class="form-control" />
+                </div>
+                <div class="form-group my-3">
+                    <button class="btn btn-info">Güncelle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

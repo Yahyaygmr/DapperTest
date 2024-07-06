@@ -1,0 +1,35 @@
+﻿@model List<DapperTest.Dtos.LocationDtos.ResultLocationDto>
+@{
+    ViewData["Title"] = "LocationList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<div class="container">
+    <h1>Lokasyon Listesi</h1>
+    <hr />
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>Lokasyon Adı</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            count++;
+            <tr>
+                <td>@count</td>
+                <td>@item.LocationName</td>
+                <td><a href="/AdminLocation/DeleteLocation/@item.LocationId">Sil</a></td>
+                <td><a href="/AdminLocation/UpdateLocation/@item.LocationId">Güncelle</a></td>
+            </tr>
+        }
+    </table>
+    <div class="row">
+        <a href="/AdminLocation/CreateLocation/">+ Yeni Lokasyon Oluştur</a>
+    </div>
+</div>
+
+
+
