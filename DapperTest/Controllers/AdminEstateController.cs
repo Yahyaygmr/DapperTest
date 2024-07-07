@@ -35,12 +35,37 @@ namespace DapperTest.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEstate(CreateEstateDto dto)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 await _estateService.CreateEstateAsync(dto);
                 return RedirectToAction("EstateList");
             }
             return View();
+        }
+        public async Task<IActionResult> DeleteEstate(int id)
+        {
+            await _estateService.DeleteEstateAsync(id);
+            return RedirectToAction("EstateList");
+        }
+        [HttpGet]
+        public async Task<ActionResult> UpdateEstate(int id)
+        {
+            ViewBag.categories = await _categoryService.GetAllCategoryAsync();
+            ViewBag.locations = await _locationService.GetAllLocationAsync();
+            var values = await _estateService.GetEstateAsync(id);
+            return View(values);
+        }
+        [HttpPost]
+        public async Task<ActionResult> UpdateEstate(UpdateEstateDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.categories = await _categoryService.GetAllCategoryAsync();
+                ViewBag.locations = await _locationService.GetAllLocationAsync();
+                return View(dto);
+            }
+            await _estateService.UpdateEstateAsync(dto);
+            return RedirectToAction("EstateList");
         }
     }
 }

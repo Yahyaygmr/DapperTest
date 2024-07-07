@@ -6,7 +6,7 @@
 
 <h2>Emlak Listesi</h2>
 <hr />
-<table class="table table-bordered table-responsive">
+<table class="table table-bordered">
     <tr>
         <th>#</th>
         <th>Ad</th>
@@ -15,7 +15,8 @@
         <th>Öneçıkan</th>
         <th>Satılık</th>
         <th>Kiralık</th>
-        <th>İşlemler</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
     </tr>
     @foreach (var item in Model)
     {
@@ -28,10 +29,12 @@
             <td>@item.ForSale</td>
             <td>@item.ForRent</td>
             <td>
-                <a href="#" class="btn btn-danger">Sil</a>
-                <a href="#" class="btn btn-info">Güncelle</a>
+                <a href="/AdminEstate/DeleteEstate/@item.EstateId" class="btn btn-danger">Sil</a>
+            </td>
+            <td>
+                <a href="/AdminEstate/UpdateEstate/@item.EstateId" class="btn btn-info">Güncelle</a>
             </td>
         </tr>
     }
 </table>
-<a href="#" class="btn btn-primary">+ Yeni Oluştur</a>
+<a href="/AdminEstate/CreateEstate" class="btn btn-primary">+ Yeni Oluştur</a>

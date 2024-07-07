@@ -3,6 +3,7 @@ using DapperTest.Context;
 using DapperTest.Dtos.EstateDtos;
 using DapperTest.Dtos.ImageDtos;
 using DapperTest.Services.Abstracts.Estate;
+using Newtonsoft.Json.Linq;
 
 namespace DapperTest.Services.Concretes.Estate
 {
@@ -54,9 +55,20 @@ namespace DapperTest.Services.Concretes.Estate
             }
 
         }
-        public Task DeleteEstateAsync(int id)
+        public async Task DeleteEstateAsync(int id)
         {
-            throw new NotImplementedException();
+            var query1 = "Delete From TblImage Where EstateId=@estateId";
+            var parameters1 = new DynamicParameters();
+            parameters1.Add("@estateId", id);
+
+            var query2 = "Delete From TblEstate Where EstateId=@estateId";
+            var parameters2 = new DynamicParameters();
+            parameters2.Add("@estateId", id);
+
+            var connection = _dapperContext.CreateConnection();
+            await connection.ExecuteAsync(query1, parameters1);
+            await connection.ExecuteAsync(query2, parameters2);
+
         }
 
         public async Task<List<ResultEstateDto>> GetAllEstateAsync()
@@ -78,14 +90,79 @@ namespace DapperTest.Services.Concretes.Estate
         }
 
 
-        public Task<GetByIdEstateDto> GetEstateAsync(int id)
+        public async Task<GetByIdEstateDto> GetEstateAsync(int id)
         {
-            throw new NotImplementedException();
+            string query = "Select * From TblEstate Where EstateId=@estateId";
+            var parameter = new DynamicParameters();
+            parameter.Add("@estateId", id);
+            var connection = _dapperContext.CreateConnection();
+            var values = await connection.QueryFirstOrDefaultAsync<GetByIdEstateDto>(query, parameter);
+
+            var query1 = "Select * From TblImage Where EstateId=@estateId";
+            var imageList = (await connection.QueryAsync<ResultImageDto>(query1, new { estateId = id })).ToList();
+
+            values.Images = imageList;
+            return values;
+
         }
 
-        public Task UpdateEstateAsync(UpdateEstateDto dto)
+        public async Task UpdateEstateAsync(UpdateEstateDto dto)
         {
-            throw new NotImplementedException();
+            var query = @"Update TblEstate 
+                  Set EstateName = @estateName, 
+                      VideoUrl = @videoUrl, 
+                      Adress = @adress, 
+                      Description = @description, 
+                      ForRent = @forRent, 
+                      ForSale = @forSale, 
+                      BedroomCount = @bedroomCount, 
+                      BathroomCount = @bathroomCount, 
+                      Price = @price, 
+                      AreaSize = @areaSize, 
+                      IsFeatured = @isFeatured, 
+                      BuildAge = @buildAge, 
+                      CategoryId = @categoryId, 
+                      LocationId = @locationId 
+                  Where EstateId = @estateId";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@estateId", dto.EstateId);
+            parameters.Add("@estateName", dto.EstateName);
+            parameters.Add("@videoUrl", dto.VideoUrl);
+            parameters.Add("@adress", dto.Adress);
+            parameters.Add("@description", dto.Description);
+            parameters.Add("@forRent", dto.ForRent);
+            parameters.Add("@forSale", dto.ForSale);
+            parameters.Add("@bedroomCount", dto.BedroomCount);
+            parameters.Add("@bathroomCount", dto.BathroomCount);
+            parameters.Add("@price", dto.Price);
+            parameters.Add("@areaSize", dto.AreaSize);
+            parameters.Add("@isFeatured", dto.IsFeatured);
+            parameters.Add("@buildAge", dto.BuildAge);
+            parameters.Add("@categoryId", dto.CategoryId);
+            parameters.Add("@locationId", dto.LocationId);
+
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+
+                // Eski resimleri silmek ve yeni resimleri eklemek için
+                if (dto.Images != null && dto.Images.Any())
+                {
+                    var deleteCommand = "Delete From TblImage Where EstateId = @estateId";
+                    await connection.ExecuteAsync(deleteCommand, new { estateId = dto.EstateId });
+
+                    foreach (var image in dto.Images.Where(x => !string.IsNullOrWhiteSpace(x)))
+                    {
+                        var insertCommand = "Insert Into TblImage (ImageUrl, EstateId) values (@imageUrl, @estateId)";
+                        var imageParameters = new DynamicParameters();
+                        imageParameters.Add("@imageUrl", image);
+                        imageParameters.Add("@estateId", dto.EstateId);
+                        await connection.ExecuteAsync(insertCommand, imageParameters);
+                    }
+                }
+            }
         }
+
     }
 }
