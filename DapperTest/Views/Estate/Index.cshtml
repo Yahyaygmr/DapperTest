@@ -1,4 +1,4 @@
-﻿
+﻿@model List<DapperTest.Dtos.EstateDtos.ResultEstateWithCategoryAndLocationDto>
 @{
     ViewData["Title"] = "Potföy";
     Layout = "~/Views/Shared/_UILayout.cshtml";
@@ -9,46 +9,86 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Property</span></p>
-                <h1 class="mb-3 bread">Property</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Anasayfa</a></span> <span>Emlak</span></p>
+                <h1 class="mb-3 bread">Emlak</h1>
             </div>
         </div>
     </div>
 </div>
-
 @await Component.InvokeAsync("HomeSearchPropertyComponentPartial")
-
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 ftco-animate">
-                <div class="properties">
-                    <a href="/Estate/Detail" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/royalestate-master/images/properties-1.jpg);">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="icon-search2"></span>
-                        </div>
-                    </a>
-                    <div class="text p-3">
-                        <span class="status sale">Sale</span>
-                        <div class="d-flex">
-                            <div class="one">
-                                <h3><a href="property-single.html">North Parchmore Street</a></h3>
-                                <p>Apartment</p>
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 ftco-animate">
+                    <div class="properties">
+                        <a href="/Estate/Detail/@item.EstateId" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(@item.ImageUrl);">
+                            <div class="icon d-flex justify-content-center align-items-center">
+                                <span class="icon-search2"></span>
                             </div>
-                            <div class="two">
-                                <span class="price">$20,000</span>
+                        </a>
+                        @if(item.ForRent)
+                        {
+                            <div class="text p-3">
+                                <span class="status rent">Kiralık</span>
+                                <div class="d-flex">
+                                    <div>
+                                        <div class="col-12">
+                                            <div >
+                                                <h3><a href="property-single.html">@item.EstateName</a></h3>
+                                                <p>@item.CategoryName</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="two">
+                                                <span class="price">@item.Price.ToString("c")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>@item.Adress</p>
+                                <hr>
+                                <p class="bottom-area d-flex">
+                                    <span><i class="flaticon-selection"></i> @item.AreaSize m2</span>
+                                    <span class="ml-auto"><i class="flaticon-bathtub"></i> @item.BathroomCount</span>
+                                    <span><i class="flaticon-bed"></i> @item.BedroomCount</span>
+                                </p>
                             </div>
-                        </div>
-                        <p>Far far away, behind the word mountains, far from the countries</p>
-                        <hr>
-                        <p class="bottom-area d-flex">
-                            <span><i class="flaticon-selection"></i> 250sqft</span>
-                            <span class="ml-auto"><i class="flaticon-bathtub"></i> 3</span>
-                            <span><i class="flaticon-bed"></i> 4</span>
-                        </p>
+                        }
+                        else if(item.ForSale)
+                        {
+                            <div class="text p-3">
+                                <span class="status sale">Satılık</span>
+                                <div class="d-flex">
+                                    <div>
+                                        <div class="col-12">
+                                            <div >
+                                                <h3><a href="property-single.html">@item.EstateName</a></h3>
+                                                <p>@item.CategoryName</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="two">
+                                                <span class="price">@item.Price.ToString("c")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>@item.Adress</p>
+                                <hr>
+                                <p class="bottom-area d-flex">
+                                    <span><i class="flaticon-selection"></i> @item.AreaSize m2</span>
+                                    <span class="ml-auto"><i class="flaticon-bathtub"></i> @item.BathroomCount</span>
+                                    <span><i class="flaticon-bed"></i> @item.BedroomCount</span>
+                                </p>
+                            </div>
+                        }
+
                     </div>
                 </div>
-            </div>
+            }
+           
             <div class="col-md-4 ftco-animate">
                 <div class="properties">
                     <a href="property-single.html" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/royalestate-master/images/properties-2.jpg);">

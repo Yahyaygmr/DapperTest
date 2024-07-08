@@ -1,15 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DapperTest.Services.Abstracts.Estate;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DapperTest.Controllers
 {
     public class EstateController : Controller
     {
-        public IActionResult Index()
+        private readonly IEstateService _estateService;
+
+        public EstateController(IEstateService estateService)
         {
-            return View();
+            _estateService = estateService;
         }
-        public IActionResult Detail()
+
+        public async Task<IActionResult> Index()
         {
+            var values = await _estateService.GetAllEstateWithCategoryAndLocationAsync();
+            return View(values);
+        }
+        public IActionResult Detail(int id)
+        {
+            ViewBag.id = id;
             return View();
         }
     }

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\royalestate-master\.DS_Store" />
     <None Include="wwwroot\royalestate-master\css\.DS_Store" />
     <None Include="wwwroot\royalestate-master\css\bootstrap\.DS_Store" />
     <None Include="wwwroot\royalestate-master\css\css\.DS_Store" />

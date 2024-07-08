@@ -89,6 +89,71 @@ namespace DapperTest.Services.Concretes.Estate
             }
         }
 
+        public async Task<List<ResultEstateByIsFeatureDto>> GetAllEstateByIsFeatureAsync()
+        {
+            var query = "SELECT dbo.TblEstate.*, dbo.TblLocation.LocationName, dbo.TblCategory.CategoryName FROM dbo.TblCategory INNER JOIN dbo.TblEstate ON dbo.TblCategory.CategoryId = dbo.TblEstate.CategoryId INNER JOIN dbo.TblLocation ON dbo.TblEstate.LocationId = dbo.TblLocation.LocationId Where dbo.TblEstate.IsFeatured=1";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var values = (await connection.QueryAsync<ResultEstateByIsFeatureDto>(query)).ToList();
+
+                foreach (var value in values)
+                {
+                    var query1 = "Select * From TblImage Where EstateId=@estateId";
+                    var image = (await connection.QueryFirstOrDefaultAsync<ResultImageDto>(query1, new { estateId = value.EstateId }));
+                    value.ImageUrl = image.ImageUrl;
+                }
+                return values;
+            }
+        }
+
+        public async Task<ResultEstateForDetailDto> GetEstateForDetailAsync(int id)
+        {
+            var query = @"
+        SELECT dbo.TblCategory.CategoryName, dbo.TblEstate.*, dbo.TblLocation.LocationName 
+        FROM dbo.TblCategory 
+        INNER JOIN dbo.TblEstate ON dbo.TblCategory.CategoryId = dbo.TblEstate.CategoryId 
+        INNER JOIN dbo.TblLocation ON dbo.TblEstate.LocationId = dbo.TblLocation.LocationId 
+        WHERE dbo.TblEstate.EstateId = @estateId";
+
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var estate = await connection.QueryFirstOrDefaultAsync<ResultEstateForDetailDto>(query, new { estateId = id });
+
+                if (estate != null)
+                {
+                    var query1 = "SELECT * FROM TblImage WHERE EstateId = @estateId";
+                    var images = (await connection.QueryAsync<ResultImageDto>(query1, new { estateId = id })).ToList();
+
+                    // Assuming you want to set the ImageUrl to the first image's URL
+                    if (images.Any())
+                    {
+                        estate.ImageUrl = images.First().ImageUrl;
+                    }
+
+                    return estate;
+                }
+
+                return null;
+            }
+        }
+
+
+        public async Task<List<ResultEstateWithCategoryAndLocationDto>> GetAllEstateWithCategoryAndLocationAsync()
+        {
+            var query = "SELECT dbo.TblEstate.*, dbo.TblLocation.LocationName, dbo.TblCategory.CategoryName FROM dbo.TblCategory INNER JOIN dbo.TblEstate ON dbo.TblCategory.CategoryId = dbo.TblEstate.CategoryId INNER JOIN dbo.TblLocation ON dbo.TblEstate.LocationId = dbo.TblLocation.LocationId";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var values = (await connection.QueryAsync<ResultEstateWithCategoryAndLocationDto>(query)).ToList();
+
+                foreach (var value in values)
+                {
+                    var query1 = "Select * From TblImage Where EstateId=@estateId";
+                    var image = (await connection.QueryFirstOrDefaultAsync<ResultImageDto>(query1, new { estateId = value.EstateId }));
+                    value.ImageUrl = image.ImageUrl;
+                }
+                return values;
+            }
+        }
 
         public async Task<GetByIdEstateDto> GetEstateAsync(int id)
         {
@@ -104,6 +169,23 @@ namespace DapperTest.Services.Concretes.Estate
             values.Images = imageList;
             return values;
 
+        }
+
+        public async Task<List<ResultEstateByIsFeatureDto>> GetLast4EstateAsync()
+        {
+            var query = "SELECT dbo.TblEstate.*, dbo.TblLocation.LocationName, dbo.TblCategory.CategoryName FROM dbo.TblCategory INNER JOIN dbo.TblEstate ON dbo.TblCategory.CategoryId = dbo.TblEstate.CategoryId INNER JOIN dbo.TblLocation ON dbo.TblEstate.LocationId = dbo.TblLocation.LocationId ORDER BY dbo.TblEstate.EstateId DESC OFFSET 0 ROWS FETCH NEXT 4 ROWS ONLY;";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var values = (await connection.QueryAsync<ResultEstateByIsFeatureDto>(query)).ToList();
+
+                foreach (var value in values)
+                {
+                    var query1 = "Select * From TblImage Where EstateId=@estateId";
+                    var image = (await connection.QueryFirstOrDefaultAsync<ResultImageDto>(query1, new { estateId = value.EstateId }));
+                    value.ImageUrl = image.ImageUrl;
+                }
+                return values;
+            }
         }
 
         public async Task UpdateEstateAsync(UpdateEstateDto dto)
@@ -163,6 +245,7 @@ namespace DapperTest.Services.Concretes.Estate
                 }
             }
         }
+
 
     }
 }

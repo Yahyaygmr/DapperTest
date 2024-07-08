@@ -1,0 +1,12 @@
+﻿@model List<DapperTest.Dtos.ImageDtos.ResultImageDto>
+
+<div class="col-md-12 ftco-animate">
+    <div class="single-slider owl-carousel">
+        @foreach (var item in Model)
+        {
+            <div class="item">
+                <div class="properties-img" style="background-image: url(@item.ImageUrl);"></div>
+            </div>
+        }
+    </div>
+</div>

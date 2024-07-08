@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DapperTest.Services.Abstracts.Estate;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DapperTest.ViewComponents.HomeViewComponents
 {
     public class HomeLast4PropertyComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly IEstateService _estateService;
+
+        public HomeLast4PropertyComponentPartial(IEstateService estateService)
         {
-            return View();
+            _estateService = estateService;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var values = await _estateService.GetLast4EstateAsync();
+            return View(values);
         }
     }
 }
