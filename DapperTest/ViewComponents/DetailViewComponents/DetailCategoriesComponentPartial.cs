@@ -17,5 +17,6 @@ namespace DapperTest.ViewComponents.DetailViewComponents
             var values = await _categoryService.GetAllCategoryWithCountAsync();
             return View(values);
         }
+        //Test
     }
 }
