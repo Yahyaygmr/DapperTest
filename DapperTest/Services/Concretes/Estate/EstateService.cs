@@ -2,6 +2,7 @@
 using DapperTest.Context;
 using DapperTest.Dtos.EstateDtos;
 using DapperTest.Dtos.ImageDtos;
+using DapperTest.Dtos.TagCloud;
 using DapperTest.Services.Abstracts.Estate;
 using Newtonsoft.Json.Linq;
 
@@ -129,7 +130,9 @@ namespace DapperTest.Services.Concretes.Estate
                     {
                         estate.ImageUrl = images.First().ImageUrl;
                     }
-
+                    //string query2 = "Select * From TblTagCloud Where EstateId = @estateId";
+                    //var tags = (await connection.QueryAsync<ResultTagCloudDto>(query2, new { estateId = id })).ToList();
+                    //estate.TagClouds = tags;
                     return estate;
                 }
 

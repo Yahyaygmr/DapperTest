@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DapperTest.Services.Abstracts.TagCloud;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DapperTest.ViewComponents.DetailViewComponents
 {
     public class DetailTagColudsComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly ITagCloudService _tagCloudService;
+
+        public DetailTagColudsComponentPartial(ITagCloudService tagCloudService)
         {
-            return View();
+            _tagCloudService = tagCloudService;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync(int id)
+        {
+            var values = await _tagCloudService.GetAllTagsByEstateId(id);
+            return View(values);
         }
     }
 }

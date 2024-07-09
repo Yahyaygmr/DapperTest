@@ -1,4 +1,7 @@
-﻿namespace DapperTest.Dtos.EstateDtos
+﻿using DapperTest.Dtos.TagCloud;
+using Microsoft.Build.Execution;
+
+namespace DapperTest.Dtos.EstateDtos
 {
     public class ResultEstateForDetailDto
     {
@@ -17,6 +20,7 @@
         public string Description { get; set; }
         public string VideoUrl { get; set; }
 
+        public List<ResultTagCloudDto> TagClouds { get; set; }
         public string LocationName { get; set; }
         public string CategoryName { get; set; }
         public int LocationId { get; set; }
