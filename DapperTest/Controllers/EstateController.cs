@@ -1,4 +1,5 @@
-﻿using DapperTest.Services.Abstracts.Estate;
+﻿using DapperTest.Dtos.EstateDtos;
+using DapperTest.Services.Abstracts.Estate;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DapperTest.Controllers
@@ -21,6 +22,12 @@ namespace DapperTest.Controllers
         {
             ViewBag.id = id;
             return View();
+        }
+
+        public async Task<IActionResult> SearchEstates(SearchEstateDto dto)
+        {
+            var values = await _estateService.Search(dto);
+            return View(values);
         }
     }
 }

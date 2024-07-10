@@ -1,4 +1,6 @@
-﻿using DapperTest.Dtos.ProductDtos;
+﻿using DapperTest.Dtos.EstateDtos;
+using DapperTest.Dtos.ProductDtos;
+using DapperTest.Services.Abstracts.Estate;
 using DapperTest.Services.Abstracts.Product;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,14 +9,18 @@ namespace DapperTest.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IEstateService _estateService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IEstateService estateService)
         {
             _productService = productService;
+            _estateService = estateService;
         }
 
         public async Task<IActionResult> ProductList()
         {
+            //await _estateService.Search(new SearchEstateDto { CategoryId = 1, ForSale = true });
+
             var values = await _productService.GetAllProductWithCategoryAsync();
             ViewBag.productCount = await _productService.GetProductCount();
             return View(values);

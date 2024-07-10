@@ -13,5 +13,6 @@ namespace DapperTest.Services.Abstracts.Estate
         Task DeleteEstateAsync(int id);
         Task UpdateEstateAsync(UpdateEstateDto dto);
         Task<GetByIdEstateDto> GetEstateAsync(int id);
+        Task<List<ResultEstateDto>> Search(SearchEstateDto dto);
     }
 }

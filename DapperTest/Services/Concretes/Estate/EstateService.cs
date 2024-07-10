@@ -4,6 +4,7 @@ using DapperTest.Dtos.EstateDtos;
 using DapperTest.Dtos.ImageDtos;
 using DapperTest.Dtos.TagCloud;
 using DapperTest.Services.Abstracts.Estate;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
 namespace DapperTest.Services.Concretes.Estate
@@ -249,6 +250,52 @@ namespace DapperTest.Services.Concretes.Estate
             }
         }
 
+        public async Task<List<ResultEstateDto>> Search(SearchEstateDto dto)
+        {
+            string query = @"
+        SELECT [EstateId]
+              ,[EstateName]
+              ,[VideoUrl]
+              ,[Adress]
+              ,[Description]
+              ,[CategoryId]
+              ,[ForRent]
+              ,[ForSale]
+              ,[BedroomCount]
+              ,[BathroomCount]
+              ,[Price]
+              ,[AreaSize]
+              ,[IsFeatured]
+              ,[BuildAge]
+              ,[LocationId]
+          FROM [DbDapperTest].[dbo].[TblEstate]
+          WHERE 
+              (@CategoryId IS NULL OR [CategoryId] = @CategoryId) AND
+              (@ForRent IS NULL OR [ForRent] = @ForRent) AND
+              (@ForSale IS NULL OR [ForSale] = @ForSale) AND
+              (@MinBedroomCount IS NULL OR [BedroomCount] >= @MinBedroomCount) AND
+              (@MinBathroomCount IS NULL OR [BathroomCount] >= @MinBathroomCount) AND
+              (@MinPrice IS NULL OR [Price] >= @MinPrice) AND
+              (@MaxPrice IS NULL OR [Price] <= @MaxPrice) AND
+              (@MinAreaSize IS NULL OR [AreaSize] >= @MinAreaSize) AND
+              (@MaxAreaSize IS NULL OR [AreaSize] <= @MaxAreaSize)
+    ";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@CategoryId", dto.CategoryId);
+            parameters.Add("@ForRent", dto.ForRent);
+            parameters.Add("@ForSale", dto.ForSale);
+            parameters.Add("@MinBedroomCount", dto.MinBedroomCount);
+            parameters.Add("@MinBathroomCount", dto.MinBathroomCount);
+            parameters.Add("@MinPrice", dto.MinPrice);
+            parameters.Add("@MaxPrice", dto.MaxPrice);
+            parameters.Add("@MinAreaSize", dto.MinAreaSize);
+            parameters.Add("@MaxAreaSize", dto.MaxAreaSize);
+
+            var connection = _dapperContext.CreateConnection();
+            var estates = await connection.QueryAsync<ResultEstateDto>(query, parameters);
+            return estates.ToList();
+        }
 
     }
 }
