@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12 search-wrap">
                 <h2 class="heading h5 d-flex align-items-center pr-4"><span class="ion-ios-search mr-3"></span> Ara...</h2>
-                <form action="#" class="search-property">
+                <form asp-action="SearchEstates" asp-controller="Estate" method="post" class="search-property">
                     <div class="row">
                         <div class="col-md align-items-end">
                             <div class="form-group">
@@ -13,46 +13,31 @@
                                 <div class="form-field">
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                        <select asp-for="CategoryId" class="form-control text-black" >
-                                            <option value="" style="color:black;">Type</option>
-                                            <option value="" style="color:black;">Commercial</option>
-                                            <option value="">- Office</option>
-                                            <option value="">Residential</option>
-                                            <option value="">Villa</option>
-                                            <option value="">Condominium</option>
-                                            <option value="">Apartment</option>
+                                        <select asp-for="CategoryId" class="form-control text-black">
+                                            @foreach (var item in ViewBag.categories)
+                                            {
+                                                <option value="@item.CategoryId" style="color:black;">@item.CategoryName</option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md align-items-end">
-                            <div class="form-group">
-                                <label for="#">Durumu</label>
-                                <div class="form-field">
-                                    <div class="select-wrap">
-                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                        <select name="" id="" class="form-control">
-                                            <option value="" style="color:black;">Type</option>
-                                            <option value="" style="color:black;">Rent</option>
-                                            <option value="">Sale</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="col-md align-items-end">
                             <div class="form-group">
                                 <label for="#">Min. Yatak Odası</label>
                                 <div class="form-field">
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                        <select name="" id="" class="form-control">
-                                            <option value="" style="color:black;">1</option>
-                                            <option value="" style="color:black;">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
+                                        <select asp-for="MinBedroomCount" class="form-control">
+                                            <option value="1" style="color:black;">1</option>
+                                            <option value="2" style="color:black;">2</option>
+                                            <option value="3" style="color:black;">3</option>
+                                            <option value="4" style="color:black;">4</option>
+                                            <option value="5" style="color:black;">5</option>
+                                            <option value="6" style="color:black;">6</option>
+                                            <option value="7" style="color:black;">7</option>
                                         </select>
                                     </div>
                                 </div>
@@ -64,12 +49,14 @@
                                 <div class="form-field">
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                        <select name="" id="" class="form-control">
-                                            <option value="" style="color:black;">1</option>
-                                            <option value="" style="color:black;">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
+                                        <select asp-for="MinBathroomCount" class="form-control">
+                                            <option value="1" style="color:black;">1</option>
+                                            <option value="2" style="color:black;">2</option>
+                                            <option value="3" style="color:black;">3</option>
+                                            <option value="4" style="color:black;">4</option>
+                                            <option value="5" style="color:black;">5</option>
+                                            <option value="6" style="color:black;">6</option>
+                                            <option value="7" style="color:black;">7</option>
                                         </select>
                                     </div>
                                 </div>
@@ -83,7 +70,7 @@
                                 <label for="#">Min Fiyat <span>(TL)</span></label>
                                 <div class="form-field">
                                     <div class="icon"><span class="icon-pencil"></span></div>
-                                    <input type="text" class="form-control" placeholder="Min Area">
+                                    <input type="text" asp-for="MinPrice" class="form-control" placeholder="Min Fiyat">
                                 </div>
                             </div>
                         </div>
@@ -92,16 +79,16 @@
                                 <label for="#">Max Fiyat <span>(TL)</span></label>
                                 <div class="form-field">
                                     <div class="icon"><span class="icon-pencil"></span></div>
-                                    <input type="text" class="form-control" placeholder="Max Area">
+                                    <input type="text" asp-for="MaxPrice" class="form-control" placeholder="Max Fiyat">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md align-items-end">
                             <div class="form-group">
-                                <label for="#">Min Metrekare <span>(m2)</span></label>
+                                <label for="#">Min m2 <span>(m2)</span></label>
                                 <div class="form-field">
                                     <div class="icon"><span class="icon-pencil"></span></div>
-                                    <input type="text" class="form-control" placeholder="Min Area">
+                                    <input type="text" asp-for="MinAreaSize" class="form-control" placeholder="Min Area">
                                 </div>
                             </div>
                         </div>
@@ -110,7 +97,30 @@
                                 <label for="#">Max m2 <span>(m2)</span></label>
                                 <div class="form-field">
                                     <div class="icon"><span class="icon-pencil"></span></div>
-                                    <input type="text" class="form-control" placeholder="Max Area">
+                                    <input type="text" asp-for="MaxAreaSize" class="form-control" placeholder="Max Area">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md align-items-end">
+                            <div class="form-group">
+                                <label for="status">Durumu</label>
+                                <div class="form-field">
+                                    <div class="checkbox-wrap">
+
+                                        <div class="container">
+                                            <input type="checkbox" asp-for="ForSale" style="color:black;" class="form-check-input">
+                                            <label class="form-check-label">
+                                                Satılık
+                                            </label>
+                                        </div>
+                                        <div class="container">
+                                            <input type="checkbox" asp-for="ForRent" style="color:black;" class="form-check-input">
+                                            <label class="form-check-label">
+                                                Kiralık
+                                            </label>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

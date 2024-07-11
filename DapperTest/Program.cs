@@ -4,12 +4,14 @@ using DapperTest.Services.Abstracts.Estate;
 using DapperTest.Services.Abstracts.Image;
 using DapperTest.Services.Abstracts.Location;
 using DapperTest.Services.Abstracts.Product;
+using DapperTest.Services.Abstracts.Slider;
 using DapperTest.Services.Abstracts.TagCloud;
 using DapperTest.Services.Concretes.Category;
 using DapperTest.Services.Concretes.Estate;
 using DapperTest.Services.Concretes.Image;
 using DapperTest.Services.Concretes.Location;
 using DapperTest.Services.Concretes.Product;
+using DapperTest.Services.Concretes.Slider;
 using DapperTest.Services.Concretes.TagCloud;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,7 @@ builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IEstateService, EstateService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ITagCloudService, TagCloudService>();
+builder.Services.AddScoped<ISliderService, SliderService>();
 
 builder.Services.AddControllersWithViews();
 

@@ -1,4 +1,6 @@
-﻿using DapperTest.Dtos.EstateDtos;
+﻿using DapperTest.Dtos.CategoryDtos;
+using DapperTest.Dtos.EstateDtos;
+using DapperTest.Services.Abstracts.Category;
 using DapperTest.Services.Abstracts.Estate;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,11 +25,16 @@ namespace DapperTest.Controllers
             ViewBag.id = id;
             return View();
         }
-
+        [HttpPost]
         public async Task<IActionResult> SearchEstates(SearchEstateDto dto)
         {
+            if (dto.ForRent == false && dto.ForSale == false)
+            {
+                dto.ForSale = true;
+            }
             var values = await _estateService.Search(dto);
             return View(values);
         }
+
     }
 }

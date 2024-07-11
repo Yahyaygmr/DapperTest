@@ -1,6 +1,6 @@
 ﻿@model List<DapperTest.Dtos.EstateDtos.ResultEstateWithCategoryAndLocationDto>
 @{
-    ViewData["Title"] = "Potföy";
+    ViewData["Title"] = "SearchEstates";
     Layout = "~/Views/Shared/_UILayout.cshtml";
 }
 
@@ -10,12 +10,11 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
                 <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Anasayfa</a></span> <span>Emlak</span></p>
-                <h1 class="mb-3 bread">Emlak</h1>
+                <h1 class="mb-3 bread">Ara</h1>
             </div>
         </div>
     </div>
 </div>
-@* @await Component.InvokeAsync("HomeSearchPropertyComponentPartial") *@
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="row">
@@ -28,14 +27,14 @@
                                 <span class="icon-search2"></span>
                             </div>
                         </a>
-                        @if(item.ForRent)
+                        @if (item.ForRent)
                         {
                             <div class="text p-3">
                                 <span class="status rent">Kiralık</span>
                                 <div class="d-flex">
                                     <div>
                                         <div class="col-12">
-                                            <div >
+                                            <div>
                                                 <h3><a href="property-single.html">@item.EstateName</a></h3>
                                                 <p>@item.CategoryName</p>
                                             </div>
@@ -56,14 +55,14 @@
                                 </p>
                             </div>
                         }
-                        else if(item.ForSale)
+                        else if (item.ForSale)
                         {
                             <div class="text p-3">
                                 <span class="status sale">Satılık</span>
                                 <div class="d-flex">
                                     <div>
                                         <div class="col-12">
-                                            <div >
+                                            <div>
                                                 <h3><a href="property-single.html">@item.EstateName</a></h3>
                                                 <p>@item.CategoryName</p>
                                             </div>
@@ -88,7 +87,7 @@
                     </div>
                 </div>
             }
-           
+
             <div class="col-md-4 ftco-animate">
                 <div class="properties">
                     <a href="property-single.html" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/royalestate-master/images/properties-2.jpg);">
@@ -331,6 +330,3 @@
         </div>
     </div>
 </section>
-
-@await Component.InvokeAsync("HomeNewsletterComponentPartial")
-

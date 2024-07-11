@@ -250,7 +250,7 @@ namespace DapperTest.Services.Concretes.Estate
             }
         }
 
-        public async Task<List<ResultEstateDto>> Search(SearchEstateDto dto)
+        public async Task<List<ResultEstateWithCategoryAndLocationDto>> Search(SearchEstateDto dto)
         {
             string query = @"
         SELECT [EstateId]
@@ -293,8 +293,14 @@ namespace DapperTest.Services.Concretes.Estate
             parameters.Add("@MaxAreaSize", dto.MaxAreaSize);
 
             var connection = _dapperContext.CreateConnection();
-            var estates = await connection.QueryAsync<ResultEstateDto>(query, parameters);
-            return estates.ToList();
+            var values = await connection.QueryAsync<ResultEstateWithCategoryAndLocationDto>(query, parameters);
+            foreach (var value in values)
+            {
+                var query1 = "Select * From TblImage Where EstateId=@estateId";
+                var image = (await connection.QueryFirstOrDefaultAsync<ResultImageDto>(query1, new { estateId = value.EstateId }));
+                value.ImageUrl = image.ImageUrl;
+            }
+            return values.ToList();
         }
 
     }
