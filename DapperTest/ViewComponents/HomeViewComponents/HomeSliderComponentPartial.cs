@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DapperTest.Services.Abstracts.Slider;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DapperTest.ViewComponents.HomeViewComponents
 {
     public class HomeSliderComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly ISliderService _sliderService;
+
+        public HomeSliderComponentPartial(ISliderService sliderService)
         {
-            return View();
+            _sliderService = sliderService;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var values = await _sliderService.GetAllSliderAsync();
+            return View(values);
         }
     }
 }

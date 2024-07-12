@@ -63,7 +63,7 @@ namespace DapperTest.Services.Concretes.Slider
 
         public async Task UpdateSliderAsync(UpdateSliderDto dto)
         {
-            string query = "Update TblSlider Set ImageUrl=@imageUrl Title=@title Location=@location Description=@description Price=@price Status=@status Where SliderId=@sliderId";
+            string query = "Update TblSlider Set ImageUrl=@imageUrl, Title=@title, Location=@location, Description=@description, Price=@price, Status=@status Where SliderId=@sliderId";
 
             var parameters = new DynamicParameters();
             parameters.Add("@sliderId", dto.SliderId);

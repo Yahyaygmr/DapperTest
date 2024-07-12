@@ -2,6 +2,7 @@
 using DapperTest.Dtos.EstateDtos;
 using DapperTest.Services.Abstracts.Category;
 using DapperTest.Services.Abstracts.Estate;
+using DapperTest.Services.Paginate;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DapperTest.Controllers
@@ -15,10 +16,13 @@ namespace DapperTest.Controllers
             _estateService = estateService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageIndex = 1)
         {
+            int pageSize = 4;
             var values = await _estateService.GetAllEstateWithCategoryAndLocationAsync();
-            return View(values);
+            var paginatedList = await PaginatedList<ResultEstateWithCategoryAndLocationDto>.CreateAsync(values, pageIndex, pageSize);
+
+            return View(paginatedList);
         }
         public IActionResult Detail(int id)
         {
