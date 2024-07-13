@@ -18,7 +18,7 @@ namespace DapperTest.Controllers
 
         public async Task<IActionResult> Index(int pageIndex = 1)
         {
-            int pageSize = 4;
+            int pageSize = 6;
             var values = await _estateService.GetAllEstateWithCategoryAndLocationAsync();
             var paginatedList = await PaginatedList<ResultEstateWithCategoryAndLocationDto>.CreateAsync(values, pageIndex, pageSize);
 
