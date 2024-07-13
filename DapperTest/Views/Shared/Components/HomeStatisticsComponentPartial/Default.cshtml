@@ -1,17 +1,14 @@
-﻿<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(/royalestate-master/images/bg_1.jpg);">
+﻿@model DapperTest.Dtos.StatisticDtos.StatisticsDto
+
+<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(/royalestate-master/images/bg_1.jpg);">
     <div class="container">
-        <div class="row justify-content-center mb-3 pb-3">
-            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                <h2 class="mb-4">Some fun facts</h2>
-            </div>
-        </div>
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
                         <div class="block-18 text-center">
                             <div class="text">
-                                <strong class="number" data-number="9000">0</strong>
+                                <strong class="number" data-number="@Model.TestimonialCount">0</strong>
                                 <span>Memnun Müşteri</span>
                             </div>
                         </div>
@@ -19,7 +16,7 @@
                     <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
                         <div class="block-18 text-center">
                             <div class="text">
-                                <strong class="number" data-number="10000">0</strong>
+                                <strong class="number" data-number="@Model.EstateCount">0</strong>
                                 <span>Portföy</span>
                             </div>
                         </div>
@@ -27,7 +24,7 @@
                     <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
                         <div class="block-18 text-center">
                             <div class="text">
-                                <strong class="number" data-number="1000">0</strong>
+                                <strong class="number" data-number="@Model.AgentCount">0</strong>
                                 <span>Danışman</span>
                             </div>
                         </div>
@@ -35,8 +32,8 @@
                     <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
                         <div class="block-18 text-center">
                             <div class="text">
-                                <strong class="number" data-number="100">0</strong>
-                                <span>Ödül</span>
+                                <strong class="number" data-number="@Model.EstatesForSale">0</strong>
+                                <span>Satılık Emlak</span>
                             </div>
                         </div>
                     </div>

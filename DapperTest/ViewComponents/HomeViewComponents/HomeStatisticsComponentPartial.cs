@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DapperTest.Services.Abstracts.Statistics;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DapperTest.ViewComponents.HomeViewComponents
 {
     public class HomeStatisticsComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly IStatisticsService statisticsService;
+
+        public HomeStatisticsComponentPartial(IStatisticsService statisticsService)
         {
-            return View();
+            this.statisticsService = statisticsService;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var values = await statisticsService.GetStatisticsAsync();
+            return View(values);
         }
     }
 }

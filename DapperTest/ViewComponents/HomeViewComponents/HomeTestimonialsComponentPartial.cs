@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DapperTest.Services.Abstracts.Testimonial;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DapperTest.ViewComponents.HomeViewComponents
 {
     public class HomeTestimonialsComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+       private readonly ITestimonialService testimonialService;
+
+		public HomeTestimonialsComponentPartial(ITestimonialService testimonialService)
+		{
+			this.testimonialService = testimonialService;
+		}
+
+		public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View();
+            var values = await testimonialService.GetAllTestimonialAsync();
+            return View(values);
         }
     }
 }

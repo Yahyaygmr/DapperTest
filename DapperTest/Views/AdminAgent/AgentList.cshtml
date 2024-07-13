@@ -1,8 +1,36 @@
-﻿
+﻿@model List<DapperTest.Dtos.AgentDtos.ResultAgentDto>
 @{
     ViewData["Title"] = "AgentList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
 }
 
-<h1>AgentList</h1>
+<div class="container">
+    <h1>Müşteri Temsilcisi Listesi</h1>
+    <hr />
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>Müşteri Temsilcisi Adı</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            count++;
+            <tr>
+                <td>@count</td>
+                <td>@item.AgentFullName</td>
+                <td><a href="/AdminAgent/DeleteAgent/@item.AgentId">Sil</a></td>
+                <td><a href="/AdminAgent/UpdateAgent/@item.AgentId">Güncelle</a></td>
+            </tr>
+        }
+    </table>
+    <div class="row">
+        <a href="/AdminAgent/CreateAgent/">+ Yeni Müşteri Temsilcisi Oluştur</a>
+    </div>
+</div>
+
+
+
 

@@ -1,8 +1,36 @@
-﻿
+﻿@model List<DapperTest.Dtos.TestimonialDtos.ResultTestimonialDto>
 @{
     ViewData["Title"] = "TestimonialList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
 }
 
-<h1>TestimonialList</h1>
+<div class="container">
+    <h1>Referans Listesi</h1>
+    <hr />
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>Referans Adı</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            count++;
+            <tr>
+                <td>@count</td>
+                <td>@item.FullName</td>
+                <td><a href="/AdminTestimonial/DeleteTestimonial/@item.TestimonialId">Sil</a></td>
+                <td><a href="/AdminTestimonial/UpdateTestimonial/@item.TestimonialId">Güncelle</a></td>
+            </tr>
+        }
+    </table>
+    <div class="row">
+        <a href="/AdminTestimonial/CreateTestimonial/">+ Yeni Referans Oluştur</a>
+    </div>
+</div>
+
+
+
 

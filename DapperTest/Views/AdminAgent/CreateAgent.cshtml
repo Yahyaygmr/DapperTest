@@ -1,8 +1,31 @@
-﻿
+﻿@model DapperTest.Dtos.AgentDtos.CreateAgentDto
 @{
     ViewData["Title"] = "CreateAgent";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
 }
-
-<h1>CreateAgent</h1>
-
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1>Müşteri Temsilcisi Oluştur</h1>
+            <hr />
+            <form method="post">
+                <div class="form-group my-3">
+                    <label>Resim Url</label>
+                    <input type="text" asp-for="ImageUrl" class="form-control" />
+                </div>
+                <div class="form-group my-3">
+                    <label>Başlık</label>
+                    <input type="text" asp-for="Title" class="form-control" />
+                </div>
+                <div class="form-group my-3">
+                    <label>Adı Soyadı</label>
+                    <input type="text" asp-for="AgentFullName" class="form-control" />
+                </div>
+                <div class="form-group my-3">
+                    <button class="btn btn-info">Oluştur</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
