@@ -253,33 +253,33 @@ namespace DapperTest.Services.Concretes.Estate
         public async Task<List<ResultEstateWithCategoryAndLocationDto>> Search(SearchEstateDto dto)
         {
             string query = @"
-        SELECT [EstateId]
-              ,[EstateName]
-              ,[VideoUrl]
-              ,[Adress]
-              ,[Description]
-              ,[CategoryId]
-              ,[ForRent]
-              ,[ForSale]
-              ,[BedroomCount]
-              ,[BathroomCount]
-              ,[Price]
-              ,[AreaSize]
-              ,[IsFeatured]
-              ,[BuildAge]
-              ,[LocationId]
-          FROM [DbDapperTest].[dbo].[TblEstate]
-          WHERE 
-              (@CategoryId IS NULL OR [CategoryId] = @CategoryId) AND
-              (@ForRent IS NULL OR [ForRent] = @ForRent) AND
-              (@ForSale IS NULL OR [ForSale] = @ForSale) AND
-              (@MinBedroomCount IS NULL OR [BedroomCount] >= @MinBedroomCount) AND
-              (@MinBathroomCount IS NULL OR [BathroomCount] >= @MinBathroomCount) AND
-              (@MinPrice IS NULL OR [Price] >= @MinPrice) AND
-              (@MaxPrice IS NULL OR [Price] <= @MaxPrice) AND
-              (@MinAreaSize IS NULL OR [AreaSize] >= @MinAreaSize) AND
-              (@MaxAreaSize IS NULL OR [AreaSize] <= @MaxAreaSize)
-    ";
+SELECT [EstateId]
+      ,[EstateName]
+      ,[VideoUrl]
+      ,[Adress]
+      ,[Description]
+      ,[CategoryId]
+      ,[ForRent]
+      ,[ForSale]
+      ,[BedroomCount]
+      ,[BathroomCount]
+      ,[Price]
+      ,[AreaSize]
+      ,[IsFeatured]
+      ,[BuildAge]
+      ,[LocationId]
+  FROM [DbDapperTest].[dbo].[TblEstate]
+  WHERE 
+      (@CategoryId IS NULL OR [CategoryId] = @CategoryId) AND
+      (@ForRent IS NULL OR [ForRent] = @ForRent) AND
+      (@ForSale IS NULL OR [ForSale] = @ForSale) AND
+      (@MinBedroomCount IS NULL OR [BedroomCount] >= @MinBedroomCount) AND
+      (@MinBathroomCount IS NULL OR [BathroomCount] >= @MinBathroomCount) AND
+      (@MinPrice IS NULL OR [Price] >= @MinPrice) AND
+      (@MaxPrice IS NULL OR [Price] <= @MaxPrice) AND
+      (@MinAreaSize IS NULL OR [AreaSize] >= @MinAreaSize) AND
+      (@MaxAreaSize IS NULL OR [AreaSize] <= @MaxAreaSize);";
+
 
             var parameters = new DynamicParameters();
             parameters.Add("@CategoryId", dto.CategoryId);
@@ -296,12 +296,13 @@ namespace DapperTest.Services.Concretes.Estate
             var values = await connection.QueryAsync<ResultEstateWithCategoryAndLocationDto>(query, parameters);
             foreach (var value in values)
             {
-                var query1 = "Select * From TblImage Where EstateId=@estateId";
-                var image = (await connection.QueryFirstOrDefaultAsync<ResultImageDto>(query1, new { estateId = value.EstateId }));
-                value.ImageUrl = image.ImageUrl;
+                var query1 = "SELECT * FROM TblImage WHERE EstateId=@estateId";
+                var image = await connection.QueryFirstOrDefaultAsync<ResultImageDto>(query1, new { estateId = value.EstateId });
+                value.ImageUrl = image?.ImageUrl;
             }
             return values.ToList();
         }
+
 
     }
 }
