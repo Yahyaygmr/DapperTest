@@ -47,6 +47,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//app.UseDeveloperExceptionPage(); //dikkat!!!!
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

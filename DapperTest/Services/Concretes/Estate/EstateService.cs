@@ -296,8 +296,9 @@ SELECT [EstateId]
             var values = await connection.QueryAsync<ResultEstateWithCategoryAndLocationDto>(query, parameters);
             foreach (var value in values)
             {
+                var connection1 = _dapperContext.CreateConnection();
                 var query1 = "SELECT * FROM TblImage WHERE EstateId=@estateId";
-                var image = await connection.QueryFirstOrDefaultAsync<ResultImageDto>(query1, new { estateId = value.EstateId });
+                var image = await connection1.QueryFirstOrDefaultAsync<ResultImageDto>(query1, new { estateId = value.EstateId });
                 value.ImageUrl = image?.ImageUrl;
             }
             return values.ToList();
