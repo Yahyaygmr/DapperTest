@@ -252,34 +252,7 @@ namespace DapperTest.Services.Concretes.Estate
 
         public async Task<List<ResultEstateWithCategoryAndLocationDto>> Search(SearchEstateDto dto)
         {
-            string query = @"
-SELECT [EstateId]
-      ,[EstateName]
-      ,[VideoUrl]
-      ,[Adress]
-      ,[Description]
-      ,[CategoryId]
-      ,[ForRent]
-      ,[ForSale]
-      ,[BedroomCount]
-      ,[BathroomCount]
-      ,[Price]
-      ,[AreaSize]
-      ,[IsFeatured]
-      ,[BuildAge]
-      ,[LocationId]
-  FROM [DbDapperTest].[dbo].[TblEstate]
-  WHERE 
-      (@CategoryId IS NULL OR [CategoryId] = @CategoryId) AND
-      (@ForRent IS NULL OR [ForRent] = @ForRent) AND
-      (@ForSale IS NULL OR [ForSale] = @ForSale) AND
-      (@MinBedroomCount IS NULL OR [BedroomCount] >= @MinBedroomCount) AND
-      (@MinBathroomCount IS NULL OR [BathroomCount] >= @MinBathroomCount) AND
-      (@MinPrice IS NULL OR [Price] >= @MinPrice) AND
-      (@MaxPrice IS NULL OR [Price] <= @MaxPrice) AND
-      (@MinAreaSize IS NULL OR [AreaSize] >= @MinAreaSize) AND
-      (@MaxAreaSize IS NULL OR [AreaSize] <= @MaxAreaSize);";
-
+            string query = "SELECT * FROM TblEstate WHERE (@CategoryId IS NULL OR [CategoryId] = @CategoryId) AND (@ForRent IS NULL OR [ForRent] = @ForRent) AND (@ForSale IS NULL OR [ForSale] = @ForSale) AND (@MinBedroomCount IS NULL OR [BedroomCount] >= @MinBedroomCount) AND (@MinBathroomCount IS NULL OR [BathroomCount] >= @MinBathroomCount) AND (@MinPrice IS NULL OR [Price] >= @MinPrice) AND (@MaxPrice IS NULL OR [Price] <= @MaxPrice) AND (@MinAreaSize IS NULL OR [AreaSize] >= @MinAreaSize) AND (@MaxAreaSize IS NULL OR [AreaSize] <= @MaxAreaSize)";
 
             var parameters = new DynamicParameters();
             parameters.Add("@CategoryId", dto.CategoryId);
