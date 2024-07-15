@@ -12,6 +12,8 @@ Standart listelemenin dışında sayfalama(pagination), şartlı lısteleme gibi
 - SweetAlert
 
 ## Projeye Ait Görseller
+![Ekran Alıntısı](https://github.com/user-attachments/assets/fdea6a02-a49f-4439-a234-2faebab109bd)
+
 ![Ekran görüntüsü 2024-07-13 153736](https://github.com/user-attachments/assets/928936ee-ccf4-416a-96e7-4b936c9c4127)
 ![Ekran görüntüsü 2024-07-13 153716](https://github.com/user-attachments/assets/f746e117-7b95-4f18-ada9-a9200a5d0f8d)
 ![Ekran görüntüsü 2024-07-13 153656](https://github.com/user-attachments/assets/91bd6d09-edaf-4faf-becc-4de8a9b579d7)
