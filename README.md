@@ -10,6 +10,7 @@ Standart listelemenin dışında sayfalama(pagination), şartlı lısteleme gibi
 - MsSql
 - Db First
 - SweetAlert
+- Ck Editor
 
 ## Projeye Ait Görseller
 ![Ekran Alıntısı](https://github.com/user-attachments/assets/fdea6a02-a49f-4439-a234-2faebab109bd)
