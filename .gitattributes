@@ -1,5 +1,9 @@
+* text=auto
+*.sol linguist-language=csharp
 *.html linguist-detectable=false
-*.css linguist-detectable=false
+*.cshtml linguist-detectable=false
+*.csharp linguist-detectable=true
 *.js linguist-detectable=false
+*.css linguist-detectable=false
 *.scss linguist-detectable=false
-
+*.less linguist-detectable=false
