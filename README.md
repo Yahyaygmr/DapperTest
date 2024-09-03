@@ -1,4 +1,4 @@
-# Dapper Test
+# Dapper Test- Royal Esatate
 
 ## Proje Hakkında
 Bu proje Asp .Net Core Mvc ile oluşturulmuş, veritabanı olarak MsSql kullanan ve Dapper Orm si kullanılarak hazırlanmış bir emlak ilan sayfasıdır.
